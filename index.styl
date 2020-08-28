@@ -1,0 +1,173 @@
+/* Set the min-width so that when the window is resized the look will stay consistant */
+
+.charsheet {
+	min-width: 800px;
+}
+
+/* Universal styling applied to all elements of these types */
+
+label {
+	margin-bottom: 0;
+	font-style: italic;
+	white-space: nowrap;
+}
+
+input {
+	display: inline-block;
+	width: 165px;
+}
+
+h3, h4 {
+	color: green;
+	font-style: italic;
+	text-align: center;
+}
+
+/* Targetted styling that only effects elements with these classes */
+.sheet-flex-container {
+    display: flex;
+}
+
+.sheet-flex-direction-column {
+    flex-direction: column;
+}
+
+.sheet-align-items-center {
+	align-items: center;
+}
+
+.sheet-justify-content-space-between {
+	justify-content: space-between;
+}
+
+.sheet-abilities-container label {
+	font-size: 14px;
+}
+
+.sheet-character-container label {
+	color: green;
+}
+
+.sheet-gear-container input {
+    width: 380px;
+}
+
+.sheet-no-wrap {
+	white-space: nowrap;
+}
+
+.sheet-edit-icon {
+  font-family: 'Pictos';
+}
+
+.sheet-edit-icon:hover {
+  cursor: 'pointer';
+}
+
+button[type=roll].sheet-blank-roll-button::before { content: ' '; }
+button[type=roll].sheet-blank-roll-button {
+	font-size: 13px;
+}
+
+/* Smaller margins - remove these if you want the huge default left margin */
+.sheet-rolltemplate-custom {
+  margin-left: -37px;
+}
+.withoutavatars .sheet-rolltemplate-custom {
+  margin-left: -7px;
+}
+
+.sheet-rolltemplate-custom .sheet-container {
+  border: 1px solid;
+  /* by default, the border is the same color as the header. You can change this here, e.g. to black */
+  border-color: var(--header-bg-color);
+}
+
+/* Header formatting - title and subtitle */
+.sheet-rolltemplate-custom .sheet-header {
+  background-color: var(--header-bg-color);
+  /* change text-align to center to center the header text */
+  text-align: left;
+  color: var(--header-text-color);
+  padding: 5px;
+}
+.sheet-rolltemplate-custom .sheet-title {
+  font-size:1.1em;
+}
+.sheet-rolltemplate-custom .sheet-subtitle {
+  font-size:.9em;
+}
+
+/* example colors */
+.sheet-rolltemplate-custom .sheet-container {
+  /* this is the default color */
+  --header-bg-color: rgba(112,32,130,1);
+  --header-text-color: #FFF;
+}
+.sheet-rolltemplate-custom .sheet-container.sheet-color-red {
+  --header-bg-color: #F00;
+}
+.sheet-rolltemplate-custom .sheet-container.sheet-color-green {
+  --header-bg-color: #0F0;
+  --header-text-color: #000;
+}
+
+/* Allprops part */
+.sheet-rolltemplate-custom .sheet-content {
+  display: grid;
+  background: #FFF;
+  /* Header formatting - modify the column layout below */
+  grid-template-columns: auto auto;
+  /* Line height to match default roll template */
+  line-height:1.4em;
+}
+.sheet-rolltemplate-custom .sheet-content > div {
+  padding: 5px;
+}
+
+/* Left column */
+.sheet-rolltemplate-custom .sheet-content .sheet-key {
+  font-weight: bold;
+  padding-right: 10px;
+  text-align: right;
+}
+
+/* Empty rule, use this if you want to change the right column
+.sheet-rolltemplate-custom .sheet-value {
+}
+*/
+
+/* Make even-numbered rows grey */
+.sheet-rolltemplate-custom .sheet-content :nth-child(4n+3),
+.sheet-rolltemplate-custom .sheet-content :nth-child(4n) {
+  background:#EEE;
+}
+
+/* Description field */
+.sheet-rolltemplate-custom .sheet-desc {
+  grid-column: span 2;
+  padding: 5px;
+  text-align: center;
+}
+
+/* Hide the section(s) that do not match the attribute value */
+abilities = anthropology architecture history_ancient history_contemporary history_future military_tactics research timecraft trivia authority bureaucracy charm falsehood_detection high_society intimidation reassurance streetwise taunt forgery hacking medical_expertise notice outdoor_survival paradox_prevention science spying athletics burglary chronal_stability disguise health medic preparedness reality_anchor scuffling shooting tinkering unobtrusiveness vehicles
+
+for ability in abilities {
+	input.sheet-edit-{ability}:not([value="edit"]) + button.sheet-edit-{ability} > span.sheet-edit {
+	  display: none;
+	}
+
+	input.sheet-edit-{ability}:not([value="check"]) + button.sheet-edit-{ability} > span.sheet-check {
+	  display: none;
+	}
+
+	input.sheet-edit-{ability}:not([value="edit"]) ~ input.sheet-{ability}-pool,
+	input.sheet-edit-{ability}:not([value="edit"]) ~ div.sheet-{ability}-max {
+	  display: none;
+	}
+
+	input.sheet-edit-{ability}:not([value="check"]) ~ input.sheet-{ability} {
+	  display: none;
+	}
+}

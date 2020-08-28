@@ -1,0 +1,132 @@
+<div class="flex-container">
+  <div class="flex-container flex-direction-column character-container">
+    <div class="flex-container">
+      <label>Name:</label>
+      <input type="text" name="attr_character_name" />
+    </div>
+
+    <div class="flex-container">
+      <label>Nationality:</label>
+      <input type="text" name="attr_character_nationality" />
+    </div class="flex-container">
+
+    <div class="flex-container">
+      <label>Origin Time:</label>
+      <input type="text" name="attr_character_origin_time" />
+    </div>
+
+    <div class="flex-container">
+      <label>Profession:</label>
+      <input type="text" name="attr_character_profession" />
+    </div>
+
+    <div class="flex-container">
+      <label>Age:</label>
+      <input type="text" name="attr_character_age" />
+    </div>
+
+    <div class="flex-container">
+      <label>Drive:</label>
+      <input type="text" name="attr_character_drive" />
+    </div>
+
+    <div class="flex-container align-items-center abilities-container">
+      <label>Hit Threshold:</label>
+      <input type="number" name="attr_character_hit_threshold" />
+      <label>Armor:</label>
+      <input type="number" name="attr_character_armor" />
+    </div>
+  </div>
+</div>
+
+<div class="flex-container justify-content-space-between">
+  <div class="flex-container flex-direction-column">
+    <h3>Investigative Abilities</h3>
+    <div class="flex-container flex-direction-column">
+      <h4>Academic Abilities</h4>
+      <div class="flex-container flex-direction-column abilities-container">
+        {{#each abilities.academic}}
+        {{> ability}}
+        {{/each}}
+      </div>
+
+      <h4>Interpersonal Abilities</h4>
+      <div class="flex-container flex-direction-column abilities-container">
+        {{#each abilities.interpersonal}}
+        {{> ability}}
+        {{/each}}
+      </div>
+
+      <h4>Technical Abilities</h4>
+      <div class="flex-container flex-direction-column abilities-container">
+        {{#each abilities.technical}}
+        {{> ability}}
+        {{/each}}
+      </div>
+    </div>
+  </div>
+
+  <div class="flex-container flex-direction-column gear-container">
+    <h3>Gear</h3>
+    <fieldset class="repeating_gear">
+      <input type="text" name="attr_gearname" value="" />
+    </fieldset>
+  </div>
+
+  <div class="flex-container flex-direction-column">
+    <h3>General Abilities</h3>
+    <div class="flex-container flex-direction-column">
+      <div class="flex-container flex-direction-column abilities-container">
+        {{#each abilities.general}}
+        {{> ability}}
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<rolltemplate class="sheet-rolltemplate-custom">
+  <div class="sheet-container sheet-color-{{color}}">
+    <div class="sheet-header">
+      \{{#title}}<div class="sheet-title">\{{title}}</div>\{{/title}}
+    </div>
+    <div class="sheet-content">
+      \{{#allprops() title color}}
+      <div class="sheet-key">\{{key}}</div>
+      <div class="sheet-value">\{{value}}</div>
+      \{{/allprops() title color}}
+    </div>
+  </div>
+</rolltemplate>
+
+<script type="text/worker">
+  const abilities = [
+    {{#each abilities.academic}}
+    '{{name}}',
+    {{/each}}
+    {{#each abilities.interpersonal}}
+    '{{name}}',
+    {{/each}}
+    {{#each abilities.technical}}
+    '{{name}}',
+    {{/each}}
+    {{#each abilities.general}}
+    '{{name}}',
+    {{/each}}
+  ];
+
+  abilities.forEach(name => {
+    console.log(name);
+    on(`clicked:edit_${name}_toggle`, () => {
+      getAttrs([`edit_${name}`], values => {
+        setAttrs({ [`edit_${name}`]: values[`edit_${name}`] === 'edit' ? 'check' : 'edit' });
+      });
+    });
+
+    on(`change:ability_${name}`, eventInfo => {
+      getAttrs([`ability_${name}`], values => {
+        setAttrs({ [`ability_${name}_pool`]: Number.parseInt(values[`ability_${name}`], 10) || 0 });
+      });
+    });
+  });
+</script>

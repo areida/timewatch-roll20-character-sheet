@@ -1,0 +1,38 @@
+<div class="flex-container">
+  <input type="hidden" class="edit-{{name}}" name="attr_edit_{{name}}" value="edit" />
+  <button type="action" name="act_edit_{{name}}_toggle" class="edit-{{name}}">
+    <span class="edit-icon edit">p</span>
+    <span class="edit-icon check">3</span>
+  </button>
+  {{#if roll}}
+  <div style="width: 100%;">
+    <button
+      type="roll"
+      class="blank-roll-button"
+      value="&{template:custom} \{{title={{~label~}}}} \{{[[1d6]]}}"
+    >
+      {{label}}
+    </button>
+  </div>
+  {{else}}
+  <label>{{label}}</label>
+  {{/if}}
+  <input
+    type="number"
+    class="{{name}}"
+    name="attr_ability_{{name}}"
+    {{#if max}}max="{{max}}"{{/if}}
+    {{#if min}}min="{{min}}"{{else}}min="0"{{/if}}
+    {{#if value}}value="{{value}}"{{else}}value="0"{{/if}}
+  />
+  <input
+    type="number"
+    class="{{name}}-pool"
+    name="attr_ability_{{name}}_pool"
+    min="0"
+    {{#if max}}max="{{max}}"{{/if}}
+    {{#if min}}min="{{min}}"{{else}}min="0"{{/if}}
+    {{#if value}}value="{{value}}"{{else}}value="0"{{/if}}
+  />
+  <div class="{{name}}-max no-wrap"><span name="attr_ability_{{name}}" /></div>
+</div>
